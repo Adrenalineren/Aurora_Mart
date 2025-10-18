@@ -25,32 +25,6 @@
             margin-bottom: 10px;
         }
         
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-        }
-        
-        .form-group input {
-            width: 90%;
-            padding: 12px;
-            border: 2px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 1em;
-            font-family: 'Poppins', sans-serif;
-            transition: border-color 0.3s;
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-        
         .login-btn {
             width: 100%;
             padding: 12px;
@@ -108,6 +82,33 @@
         .back-link a:hover {
             color: #2563eb;
         }
+                .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 90%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+        
+
     </style>
 </head>
 <body>
@@ -116,9 +117,8 @@
             <a href="/">← Back to Home</a>
         </div>
         <div class="login-header">
-            <img src="{% static 'images/auroramart_logo.png' %}" alt="AuroraMart Logo" style="width: 150px; margin-bottom: 0px;">
             <h2>Admin Login</h2>
-            <p style="color: #554b4b;">Thank you for working with us</p>
+            <p style="color: #554b4b;">Manage AuroraMart</p>
         </div>
         
         {% if messages %}
@@ -141,7 +141,11 @@
             
             <button type="submit" class="login-btn">Login</button>
         </form>
-        <!--hmmm how do we tackle admin login? need sign up also?-->
+        
+        <div class="signup-link">
+            Don't have an admin account? <a href="{% url 'adminpanel:signup' %}">Sign up</a>
+        </div>
+        
     </div>
 </body>
 </html>
