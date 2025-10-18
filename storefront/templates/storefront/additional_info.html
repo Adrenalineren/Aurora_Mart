@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Additional Information - AuroraMart</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        .info-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        
+        .info-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .info-header h2 {
+            color: #1e3a8a;
+            margin-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 10cm;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s;
+            background: white;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+        
+        .confirm-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+        
+        .confirm-btn:hover {
+            background: linear-gradient(135deg, #1e40af, #5b21b6);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+    <div class="info-container">
+        <div class="info-header">
+            <h2>Additional Information</h2>
+            <p style="color: #666;">Help us personalize your experience</p>
+        </div>
+        
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" id="age" name="age" min="1" max="120" required>
+            </div>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                    <option value="prefer_not_to_say">Prefer not to say</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="employment_status">Employment Status</label>
+                <select id="employment_status" name="employment_status" required>
+                    <option value="">Select Employment Status</option>
+                    <option value="employed">Employed</option>
+                    <option value="self_employed">Self-Employed</option>
+                    <option value="unemployed">Unemployed</option>
+                    <option value="student">Student</option>
+                    <option value="retired">Retired</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="income_range">Income Range</label>
+                <select id="income_range" name="income_range" required>
+                    <option value="">Select Income Range</option>
+                    <option value="below_25k">$0 - 25,000</option>
+                    <option value="25k_50k">$25,000 - $50,000</option>
+                    <option value="50k_75k">$50,000 - $75,000</option>
+                    <option value="75k_100k">75,000 - $100,000</option>
+                    <option value="above_100k">$100,000+</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="confirm-btn">Confirm</button>
+        </form>
+    </div>
+</body>
+</html>

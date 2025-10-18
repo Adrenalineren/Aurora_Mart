@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'adminpanel', 
+    'storefront',
 ]
 
 MIDDLEWARE = [
@@ -66,6 +68,9 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGIN_REDIRECT_URL = 'storefront:dashboard'
+LOGIN_URL = 'storefront:login'
 
 WSGI_APPLICATION = 'auroramart.wsgi.application'
 
