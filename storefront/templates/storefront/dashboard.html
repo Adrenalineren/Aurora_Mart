@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #dbeafe, #e9d5ff);
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 15px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header img {
+            height: 50px;
+        }
+
+        .welcome {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #1e3a8a;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            padding: 20px;
+            width: 250px;
+            text-align: center;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: #2563eb;
+        }
+
+        .logout {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .logout a {
+            text-decoration: none;
+            background-color: #ef4444;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+        }
+
+        .logout a:hover {
+            background-color: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="{% static 'adminpanel/images/auroramart_logo.png' %}" alt="AuroraMart Logo">
+        <span>Welcome, {{ profile.user.username }}</span>
+    </header>
+
+    <div class="welcome">
+        <h1>Welcome back, {{ profile.user.username }}!</h1>
+        <p>Your preferred category: <strong>{{ profile.preferred_category|default:"Not set" }}</strong></p>
+    </div>
+
+    <div class="card-container">
+        <div class="card">
+            <h3>🛍️ Shop Products</h3>
+            <p>Browse through our exclusive product catalog.</p>
+            <a href="#">Go to Shop</a>
+        </div>
+        <div class="card">
+            <h3>📦 My Orders</h3>
+            <p>Track your order history and delivery status.</p>
+            <a href="#">View Orders</a>
+        </div>
+        <div class="card">
+            <h3>🎯 Recommendations</h3>
+            <p>Check products tailored to your preferences.</p>
+            <a href="#">See Recommendations</a>
+        </div>
+    </div>
+
+    <div class="logout">
+        <a href="{% url 'storefront:logout' %}">Logout</a>
+    </div>
+</body>
+</html>

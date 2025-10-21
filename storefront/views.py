@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -74,4 +74,12 @@ def additional_info(request):
 
 @login_required
 def customer_dashboard(request):
-    return render(request, 'storefront/dashboard.html')
+    profile = CustomerProfile.objects.get(user=request.user)
+    context = {
+        'profile':profile
+    }
+    return render(request, 'storefront/dashboard.html', context)
+
+def customer_logout(request):
+    logout(request)
+    return redirect('storefront:customer_login')

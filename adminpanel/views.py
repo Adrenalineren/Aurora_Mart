@@ -10,16 +10,20 @@ def admin_login(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, username=username, password=password) 
+        #uses Django authenticate function to check if a user exists with that username/password
         
         if user is not None:
-            # Check if user is an admin
+            # if the credentials are correct
             try:
                 admin_profile = AdminProfile.objects.get(user=user)
+                #checks whether user has an associated admin profile
                 login(request, user)
                 return redirect('adminpanel:dashboard')
+            #logs the admin in and redirects to the dashboard
             except AdminProfile.DoesNotExist:
                 messages.error(request, 'You do not have admin privileges')
+                #if no adminprofile show error message
         else:
             messages.error(request, 'Invalid username or password')
     

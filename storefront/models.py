@@ -30,4 +30,4 @@ class CustomerProfile(models.Model):
     profile_completed = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{slef.user.username}'s Profile"
+        return f"{self.user.username}'s Profile"
