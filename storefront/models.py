@@ -9,11 +9,27 @@ class CustomerProfile(models.Model):
         ('prefer_not_to_say', 'Prefer not to say'),
     ]
     EMPLOYMENT_STATUS = [
-        ('employed', 'Employed'),
+        ('full-time', 'Full-time'),
+        ('part-time', 'Part-time'),
         ('self_employed', 'Self-Employed'),
-        ('unemployed', 'Unemployed'),
         ('student', 'Student'),
         ('retired', 'Retired'),
+    ]
+    OCCUPATION = [
+        ('admin', 'Admin'),
+        ('education', 'Education'),
+        ('sales', 'Sales'),
+        ('service', 'Service'),
+        ('skilled_trades', 'Skilled Trade'),
+        ('tech', 'Tech'),
+    ]
+
+    EDUCATION = [
+        ('bachelor', 'Bachelor'),
+        ('diploma', 'Diploma'),
+        ('doctorate', 'Doctorate'),
+        ('master', 'Master'),
+        ('secondary', 'Secondary'),
     ]
     INCOME_RANGE = [
         ('below_25k', '$0 - 25,000'),
@@ -26,6 +42,10 @@ class CustomerProfile(models.Model):
     age = models.IntegerField(null=True, blank=True)
     gender = models.CharField(max_length=20, choices=GENDER_CHOICES, null=True, blank=True)
     employment_status = models.CharField(max_length=20, choices=EMPLOYMENT_STATUS, null=True, blank=True)
+    occupation = models.CharField(max_length=20, choices=OCCUPATION, null=True, blank=True)
+    education = models.CharField(max_length=20, choices=EDUCATION, null=True, blank=True)
+    household_size = models.IntegerField(null=True, blank=True)
+    has_children = models.BooleanField(default=False)
     income_range = models.CharField(max_length=20, choices=INCOME_RANGE, null=True, blank=True)
     profile_completed = models.BooleanField(default=False)
 

@@ -14,18 +14,18 @@ def customer_login(request):
         
         if user is not None:
             login(request, user)
-            try:
-                profile = CustomerProfile.objects.get(user=user)
-                if profile.profile_completed:
-                    return redirect('storefront:dashboard')
-                else:
-                    return redirect('storefront:additional_info')
-            except CustomerProfile.DoesNotExist:
+            profile, created = CustomerProfile.objects.get_or_create(user=user)
+            if profile.profile_completed:
+                return redirect('storefront:dashboard')
+            else:
                 return redirect('storefront:additional_info')
         else:
-            messages.error(request, 'Invalid username or password')
+            return redirect('storefront:additional_info')
+    else:
+        messages.error(request, 'Invalid username or password')
     
     return render(request, 'storefront/login.html')
+
 
 def customer_signup(request):
     if request.method == 'POST':
@@ -64,6 +64,14 @@ def additional_info(request):
         profile.gender = request.POST.get('gender')
         profile.employment_status = request.POST.get('employment_status')
         profile.income_range = request.POST.get('income_range')
+        profile.occupation = request.POST.get('occupation')
+        profile.education = request.POST.get('education')
+        if 'household_size' in request.POST:
+            profile.household_size = request.POST.get('household_size')
+        if 'has_children' in request.POST:
+            profile.has_children = True
+        else:
+            profile.has_children = False
         profile.profile_completed = True
         profile.save()
         
