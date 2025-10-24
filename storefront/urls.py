@@ -4,6 +4,7 @@ from . import views
 app_name = 'storefront'
 
 urlpatterns = [
+
     path('login/', views.customer_login, name = 'login'),
     path('signup/', views.customer_signup, name = 'signup'),
     path('additional_info/', views.additional_info, name = 'additional_info'),

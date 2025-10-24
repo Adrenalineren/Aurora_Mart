@@ -100,6 +100,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import CustomerProfile
+from adminpanel.models import AdminProfile
+from storefront.models import CustomerProfile
 
 def customer_login(request):
     if request.method == 'POST':
@@ -180,16 +182,21 @@ def additional_info(request):
     return render(request, 'storefront/additional_info.html')
 
 
-@login_required
 def customer_dashboard(request):
-    # CHECK IF USER IS ADMIN
-    from adminpanel.models import AdminProfile
-    is_admin = AdminProfile.objects.filter(user=request.user).exists()
-    
-    profile = CustomerProfile.objects.get(user=request.user)
+    # Check if user is an admin
+    if AdminProfile.objects.filter(user=request.user).exists():
+        profile = None  # Admins don’t have a CustomerProfile
+    else:
+        # Try to get the customer profile
+        try:
+            profile = CustomerProfile.objects.get(user=request.user)
+        except CustomerProfile.DoesNotExist:
+            messages.error(request, "No customer profile found. Please sign up as a customer.")
+            return redirect('storefront:signup')
+
     context = {
         'profile': profile,
-        'is_admin': is_admin,  # Pass this to template
+        'is_admin': AdminProfile.objects.filter(user=request.user).exists(),
     }
     return render(request, 'storefront/dashboard.html', context)
 
