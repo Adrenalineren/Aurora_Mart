@@ -132,7 +132,7 @@
 <body>
     <nav class="top-nav">
         <div style="display: flex; align-items: center;">
-            <a href="{% url 'adminpanel:dashboard' %}" class="logo-link">
+            <a href="{% url 'storefront:dashboard' %}" class="logo-link">
                 <img src="{% static 'images/AM_withoutlogo.png' %}" alt="AuroraMart">
                 <span>AuroraMart</span>
             </a>
@@ -143,6 +143,11 @@
     <div class="welcome">
         <h1>Welcome back, {{ profile.user.username }}!</h1>
         <p>Your preferred category: <strong>{{ profile.preferred_category|default:"Not set" }}</strong></p>
+        {% if is_admin %}
+            <p style = "color: #666; margin-bottom: 20px;">You have admin access!</p>
+            <a href="{% url 'adminpanel:dashboard' %}" class="admin-link">🛡️ Go to Admin Panel</a>
+            <br><br>
+        {% endif %}
     </div>
 
     <div class="card-container">

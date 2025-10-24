@@ -249,7 +249,12 @@
                 <span>AuroraMart</span>
             </a>
         </div>
-        <button class="profile-btn">👤</button>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <a href = "{% url 'storefront:dashboard' %}"style="color: white; text-decoration: none; padding: 8px 16px; background: rgba(255,255,255,0.2); border-radius: 8px; font-size: 0.9em;">
+                Visit store
+            </a>
+            <button class="profile-btn">👤</button>
+        </div>
     </nav>
 
     <aside class="sidebar">
