@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import AdminProfile
+from storefront.models import CustomerProfile #, Product, Cart
+from django.contrib.auth import logout
 
 def admin_login(request):
     if request.method == 'POST':
@@ -11,13 +13,11 @@ def admin_login(request):
         password = request.POST.get('password')
         
         user = authenticate(request, username=username, password=password) 
-        #uses Django authenticate function to check if a user exists with that username/password
         
         if user is not None:
             # if the credentials are correct
             try:
                 admin_profile = AdminProfile.objects.get(user=user)
-                #checks whether user has an associated admin profile
                 login(request, user)
                 return redirect('adminpanel:dashboard')
             #logs the admin in and redirects to the dashboard
@@ -46,11 +46,7 @@ def admin_signup(request):
         
         # Create admin user
         user = User.objects.create_user(username=username, password=password, is_staff=True)
-        
-        # Create admin profile
         AdminProfile.objects.create(user=user)
-        
-        # Log them in
         login(request, user)
         
         messages.success(request, 'Admin account created successfully!')
@@ -63,7 +59,50 @@ def admin_dashboard(request):
     # Check if user has admin profile
     try:
         admin_profile = AdminProfile.objects.get(user=request.user)
-        return render(request, 'adminpanel/dashboard.html')
+
+        total_customers = 0
+        total_products = 0
+        total_orders = 0
+        context = {
+            'total_customers': total_customers,
+            'total_products': total_products,
+            'total_orders': total_orders,
+        }
+        return render(request, 'adminpanel/dashboard.html', context)
     except AdminProfile.DoesNotExist:
         messages.error(request, 'Access denied. Admin privileges required.')
         return redirect('index')
+@login_required
+def admin_customers(request):
+    try:
+        admin_profile = AdminProfile.objects.get(user=request.user)
+        customers = CustomerProfile.objects.select_related('user').all()
+        return render(request, 'adminpanel/customers.html', {'customers': customers})
+    except AdminProfile.DoesNotExist:
+        messages.error(request, 'Access denied.')
+        return redirect('index')
+
+@login_required
+def admin_products(request):
+    try:
+        admin_profile = AdminProfile.objects.get(user=request.user)
+        products = Product.objects.select_related('category').all()
+        return render(request, 'adminpanel/products.html', {'products': products})
+    except AdminProfile.DoesNotExist:
+        messages.error(request, 'Access denied.')
+        return redirect('index')
+
+@login_required
+def admin_orders(request):
+    try:
+        admin_profile = AdminProfile.objects.get(user=request.user)
+        orders = Cart.objects.filter(items__isnull=False).distinct().select_related('user').prefetch_related('items__product')
+        return render(request, 'adminpanel/orders.html', {'orders': orders})
+    except AdminProfile.DoesNotExist:
+        messages.error(request, 'Access denied.')
+        return redirect('index')
+
+@login_required
+def admin_logout(request):
+    logout(request)
+    return redirect('adminpanel:login')
