@@ -1,0 +1,129 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - AuroraMart</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="{% static 'images/auroramart_logo.png' %}" alt="AuroraMart Logo" class="header-logo">
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-link active">All Products</a>
+                <a href="#" class="nav-link">Categories</a>
+                <a href="#" class="nav-link">New Arrivals</a>
+                <a href="#" class="nav-link">Sale</a>
+            </nav>
+            <div class="header-actions">
+                <input type="text" placeholder="Search products..." class="search-bar">
+                <a href="#" class="icon-btn">🛒 Cart</a>
+                <a href="#" class="icon-btn">👤 Profile</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Filters Sidebar -->
+        <aside class="filters-sidebar">
+            <h3>Filters</h3>
+            
+            <div class="filter-section">
+                <h4>Category</h4>
+                <label><input type="checkbox"> Electronics</label>
+                <label><input type="checkbox"> Fashion</label>
+                <label><input type="checkbox"> Home & Living</label>
+                <label><input type="checkbox"> Beauty</label>
+                <label><input type="checkbox"> Sports</label>
+            </div>
+
+            <div class="filter-section">
+                <h4>Price Range</h4>
+                <label><input type="checkbox"> Under $25</label>
+                <label><input type="checkbox"> $25 - $50</label>
+                <label><input type="checkbox"> $50 - $100</label>
+                <label><input type="checkbox"> Over $100</label>
+            </div>
+
+            <div class="filter-section">
+                <h4>Rating</h4>
+                <label><input type="checkbox"> ⭐⭐⭐⭐⭐ 5 Stars</label>
+                <label><input type="checkbox"> ⭐⭐⭐⭐ 4+ Stars</label>
+                <label><input type="checkbox"> ⭐⭐⭐ 3+ Stars</label>
+            </div>
+
+            <button class="clear-filters">Clear All Filters</button>
+        </aside>
+
+        <!-- Products Grid -->
+        <section class="products-section">
+            <div class="products-header">
+                <h2>All Products <span class="product-count">(500 items)</span></h2>
+                <div class="sort-dropdown">
+                    <select>
+                        <option>Sort by: Featured</option>
+                        <option>Price: Low to High</option>
+                        <option>Price: High to Low</option>
+                        <option>Newest First</option>
+                        <option>Best Rating</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid">
+                {% for product in products %}
+                <div class="product-card">
+                    <div class="product-image">
+                        <!-- Placeholder image - replace with actual product images -->
+                        <img src="https://via.placeholder.com/250x300/8B5CF6/ffffff?text={{ product.product_name|slice:':10' }}" alt="{{ product.product_name }}">
+                        <div class="product-overlay">
+                            <button class="quick-view-btn">Quick View</button>
+                        </div>
+                        {% if product.product_rating >= 4.5 %}
+                        <span class="badge badge-hot">🔥 Hot</span>
+                        {% endif %}
+                    </div>
+                    <div class="product-info">
+                        <p class="product-category">{{ product.product_category }}</p>
+                        <h3 class="product-name">{{ product.product_name }}</h3>
+                        <p class="product-description">{{ product.product_description|truncatewords:10 }}</p>
+                        <div class="product-rating">
+                            <span class="stars">
+                                {% for i in "12345" %}
+                                    {% if forloop.counter <= product.product_rating %}⭐{% else %}☆{% endif %}
+                                {% endfor %}
+                            </span>
+                            <span class="rating-value">({{ product.product_rating }})</span>
+                        </div>
+                        <div class="product-footer">
+                            <div class="price-section">
+                                <span class="product-price">${{ product.unit_price }}</span>
+                            </div>
+                            <button class="add-to-cart-btn">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn">← Previous</button>
+                <button class="page-btn active">1</button>
+                <button class="page-btn">2</button>
+                <button class="page-btn">3</button>
+                <button class="page-btn">4</button>
+                <button class="page-btn">5</button>
+                <button class="page-btn">Next →</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

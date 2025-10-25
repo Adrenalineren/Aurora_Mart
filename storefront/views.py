@@ -103,6 +103,7 @@ from django.contrib.auth.decorators import login_required
 from .models import CustomerProfile
 from adminpanel.models import AdminProfile
 from storefront.models import CustomerProfile
+from storefront.models import Product
 
 def customer_login(request):
     if request.method == 'POST':
@@ -123,7 +124,7 @@ def customer_login(request):
             # Regular customer flow
             profile, created = CustomerProfile.objects.get_or_create(user=user)
             if profile.profile_completed:
-                return redirect('storefront:dashboard')
+                return redirect('storefront:home')
             else:
                 return redirect('storefront:additional_info')
         else:
@@ -205,4 +206,8 @@ def customer_dashboard(request):
 def customer_logout(request):
     logout(request)
     return redirect('storefront:login')
+
+def home(request):
+    products = Product.objects.all()
+    return render(request, 'storefront/home.html', {'products': products})
 
