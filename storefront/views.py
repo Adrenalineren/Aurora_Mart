@@ -179,7 +179,7 @@ def additional_info(request):
         profile.save()
         
         messages.success(request, 'Profile completed successfully!')
-        return redirect('storefront:dashboard')
+        return redirect('storefront:home')
     
     return render(request, 'storefront/additional_info.html')
 

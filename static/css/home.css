@@ -11,7 +11,7 @@ body {
     min-height: 100vh;
 }
 .top-navigation {
-    background: linear-gradient(135deg, #5b21b6, #7c3aed);
+    background: linear-gradient(135deg, #5b21b6, #606cdf);
     padding: 15px 40px;
     display: flex;
     align-items: center;
@@ -57,7 +57,7 @@ body {
 }
 
 .nav-link {
-    color: #764ba2;
+    color: #eae1f3;
     text-decoration: none;
     font-weight: 500;
     padding: 8px 0;
@@ -67,8 +67,8 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    color: #667eea;
-    border-bottom-color: #667eea;
+    color: #abb6e9;
+    border-bottom-color: #b3bbdf;
 }
 
 .header-actions {
@@ -114,59 +114,8 @@ body {
     gap: 30px;
 }
 
-/* Filters Sidebar */
-.filters-sidebar {
-    width: 280px;
-    background: white;
-    border-radius: 15px;
-    padding: 25px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    height: fit-content;
-    position: sticky;
-    top: 100px;
-}
-
-.filters-sidebar h3 {
-    color: #764ba2;
-    font-size: 22px;
-    margin-bottom: 20px;
-}
-
-.filter-section {
-    margin-bottom: 25px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.filter-section:last-of-type {
-    border-bottom: none;
-}
-
-.filter-section h4 {
-    color: #333;
-    font-size: 16px;
-    margin-bottom: 12px;
-}
-
-.filter-section label {
-    display: block;
-    margin-bottom: 10px;
-    color: #555;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.filter-section input[type="checkbox"] {
-    cursor: pointer;
-    width: 18px;
-    height: 18px;
-    accent-color: #667eea;
-}
-
 .clear-filters {
-    width: 100%;
+    width: 20%;
     padding: 12px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -191,7 +140,7 @@ body {
     background: white;
     padding: 20px 30px;
     border-radius: 15px;
-    margin-top: 50px;
+    margin-top: 70px;
     margin-bottom: 25px;
     display: flex;
     justify-content: space-between;
@@ -234,7 +183,7 @@ body {
 }
 
 .product-card {
-    background: white;
+    background: #ecdcff;
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
