@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import CustomerProfile
+from .models import Product
 
 def customer_login(request):
     if request.method == 'POST':
@@ -82,4 +83,4 @@ def customer_dashboard(request):
 
 def customer_logout(request):
     logout(request)
-    return redirect('storefront:customer_login')
+    return redirect('storefront:login')
