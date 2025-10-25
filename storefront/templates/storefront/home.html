@@ -13,7 +13,7 @@
     <header class="header">
         <div class="header-container">
             <div class="logo-section">
-                <img src="{% static 'images/auroramart_logo.png' %}" alt="AuroraMart Logo" class="header-logo">
+                <img src="{{ product.get_image_url }}" alt="{{ product.name }}">
             </div>
             <nav class="nav-menu">
                 <a href="#" class="nav-link active">All Products</a>
@@ -82,7 +82,7 @@
                 <div class="product-card">
                     <div class="product-image">
                         <!-- Placeholder image - replace with actual product images -->
-                        <img src="https://via.placeholder.com/250x300/8B5CF6/ffffff?text={{ product.product_name|slice:':10' }}" alt="{{ product.product_name }}">
+                        <img src="{{ product.get_image_url }}" alt="{{ product.name }}">
                         <div class="product-overlay">
                             <button class="quick-view-btn">Quick View</button>
                         </div>

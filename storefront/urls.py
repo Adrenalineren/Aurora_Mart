@@ -1,5 +1,8 @@
-from django.urls import path
+from django.urls import path, include
 from . import views 
+from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'storefront'
 
@@ -10,4 +13,4 @@ urlpatterns = [
     path('additional_info/', views.additional_info, name = 'additional_info'),
     path('logout/', views.customer_logout, name='logout'),
     path('', views.home, name='home'),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
